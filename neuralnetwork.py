@@ -59,10 +59,10 @@ def processInstance(epochs,input_nodes,hidden_nodes,output_nodes,learning_rate):
                     annf = NeuralNetworkFactory(configuration)
                     configuration['performance'] = annf.execute(configuration)
                     Utilities.writeConfigPerformance(configuration)
-                    # Utilities.prettyprintconfig(configuration,True)
+                    Utilities.prettyprintconfig(configuration,True)
                 else:
                     configuration = configurationExist
-                    # Utilities.prettyprintconfig(configuration,False)
+                    Utilities.prettyprintconfig(configuration,False)
     pass
 
 
@@ -819,7 +819,7 @@ class Utilities:
             "F1":round(configuration["performance"]["f1score"],3)
         } 
 
-        print('\r' + json.dumps(configconvert), end='')
+        # print('\r' + json.dumps(configconvert), end='')
 
         if(appendtofile):
             resultsfile = "data/_results"+str(configuration["epochs"])+"/results.json"
