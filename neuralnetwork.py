@@ -34,7 +34,7 @@ def processInstance(epochs,input_nodes,hidden_nodes,output_nodes,learning_rate):
     
     balancingTypes = ['SMOTE','RANDOMOVERSAMPLING', 'RANDOMUNDERSAMPLING']
 
-    for b in range(1,len(balancingTypes)):
+    for b in range(0,len(balancingTypes)):
         balancingType = balancingTypes[b]
 
         for r in range(1,len(attrs)):
