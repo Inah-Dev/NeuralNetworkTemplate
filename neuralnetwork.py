@@ -159,7 +159,6 @@ class NeuralNetworkFactory:
         return [inputs, targets]
 
     def execute(self,configuration):
-
         self.balancingType = configuration['BalancingType']
 
         self.dataProcessor = DataProcessor(self.epochs,configuration, self.balancingType,self.attcombination)
@@ -185,7 +184,12 @@ class NeuralNetworkFactory:
 
             #go through all the rows in the training data set
             for row_ in self.trainingDataList:
-                rowcount = rowcount +1
+                 # ignore header row
+                if(rowcount == 0):
+                    rowcount = rowcount +1
+                    continue
+                else:
+                    rowcount = rowcount +1
 
                 result = self.getInputOutput(row_)
                 if(result == None):
@@ -225,7 +229,12 @@ class NeuralNetworkFactory:
 
          #go through all the rows in the testing data set
         for row_ in self.testingDataList:
-            rowcount = rowcount +1
+            # ignore header row
+            if(rowcount == 0):
+                rowcount = rowcount +1
+                continue
+            else:
+                rowcount = rowcount +1
 
             result = self.getInputOutput(row_)
             if(result == None):
@@ -318,7 +327,7 @@ class DataProcessor:
         # mergeTestingfiles = []
 
         self.balanced_data_file = "data/_balanced"+str(epoch)+"/balanced.csv"
-        self.headless_file = "data/_headless"+str(epoch)+"/headerless.csv"
+        # self.headless_file = "data/_headless"+str(epoch)+"/headerless.csv"
         self.training_data_file = "data/_training"+str(epoch)+"/train.csv"
         self.testing_data_file = "data/_testing"+str(epoch)+"/test.csv"
 
@@ -326,8 +335,8 @@ class DataProcessor:
         util.balanceData(epoch,configuration_,"grounddata/_sample.csv",self.balanced_data_file, _balancing_type,attcombination)
 
         #load training data for aws
-        util.removeHeader(self.balanced_data_file,self.headless_file)
-        util.splitTrainTestData(self.headless_file,self.training_data_file,self.testing_data_file)
+        # util.removeHeader(self.balanced_data_file,self.headless_file)
+        util.splitTrainTestData(self.balanced_data_file,self.training_data_file,self.testing_data_file)
         
 
     def getTrainingData(self):
