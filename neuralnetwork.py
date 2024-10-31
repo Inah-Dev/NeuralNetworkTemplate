@@ -327,7 +327,6 @@ class DataProcessor:
         # mergeTestingfiles = []
 
         self.balanced_data_file = "data/_balanced"+str(epoch)+"/balanced.csv"
-        # self.headless_file = "data/_headless"+str(epoch)+"/headerless.csv"
         self.training_data_file = "data/_training"+str(epoch)+"/train.csv"
         self.testing_data_file = "data/_testing"+str(epoch)+"/test.csv"
 
@@ -863,7 +862,12 @@ class Utilities:
         pass
 
 
-def main():
+def main(restart = True):
+    if(restart):
+         root = 'data/'
+         if os.path.isdir(root):
+            shutil.rmtree(root) 
+
     # number of input, hidden and output nodes
     input_nodes = 5
     hidden_nodes = 2
@@ -893,14 +897,12 @@ def main():
 
     for epochs in range(1,max_epochs):
         resultsdir = "data/_results"+str(epochs)
-        headlessdir = "data/_headless"+str(epochs)
         trainingdir = "data/_training"+str(epochs)
         testingdir = "data/_testing"+str(epochs)
         balanceddir = "data/_balanced"+str(epochs)
         attendeddir = "data/_attended"+str(epochs)
 
         Utilities().createDirs(resultsdir)
-        Utilities().createDirs(headlessdir)
         Utilities().createDirs(trainingdir)
         Utilities().createDirs(testingdir)
         Utilities().createDirs(balanceddir)
@@ -916,5 +918,5 @@ def main():
         pass
 
 if __name__ == "__main__":
-    main()
+    main(True)
 # 
